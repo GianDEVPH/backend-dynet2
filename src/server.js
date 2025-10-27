@@ -40,4 +40,7 @@ app.use('/api/schedule', verifyJWT, scheduleRoutes)
 app.use('/api/users', verifyJWT, userRoutes)
 app.use('/api/dashboard', verifyJWT, dashboardRoutes)
 const PORT = process.env.PORT || 5000
+app.get('/', (req, res) => {
+  res.send('✅ Backend API is live and running!');
+});
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
