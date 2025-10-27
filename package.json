@@ -1,0 +1,38 @@
+{
+  "name": "dynet-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "server": "nodemon src/server.js",
+    "seed:users": "node src/seeders/userSeeder.js",
+    "seed:appointments": "node src/seeders/appointmentSeeder.js",
+    "seed:extended": "node src/seeders/extendedSeeder.js",
+    "seed:all": "node src/seeders/seedAll.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/"
+  },
+  "homepage": "https://github.com/",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-async-handler": "^1.2.0",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.8.4",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20",
+    "xlsx": "^0.18.5"
+  }
+}
