@@ -11,6 +11,11 @@ const corsOptions = require('./config/corsOptions')
 // 🔹 1. Verbind met database
 connectDB()
 
+app.get('/api/test', (req, res) => {
+  res.send('✅ Backend werkt!')
+})
+
+
 // 🔹 2. Middleware vóór routes
 app.use(credentials)            // Handelt cookies & headers af
 app.use(cors(corsOptions))      // <---- HIER CORS AANROEP
@@ -46,12 +51,7 @@ app.use('/api/users', verifyJWT, userRoutes)
 app.use('/api/dashboard', verifyJWT, dashboardRoutes)
 
 // 🔹 5. Test endpoint
-app.get('/', (req, res) => {
-  res.send('✅ Backend API is live and running!')
-})
-app.get('/api/test', (req, res) => {
-  res.send('✅ Backend werkt!')
-})
+
 
 // 🔹 6. Start server
 const PORT = process.env.PORT || 5000
