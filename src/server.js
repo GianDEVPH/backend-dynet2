@@ -15,6 +15,10 @@ app.get('/api/test', (req, res) => {
   res.send('✅ Backend werkt!')
 })
 
+app.get('/', (req, res) => {
+  res.send('Server is live!');
+});
+
 
 // 🔹 2. Middleware vóór routes
 app.use(credentials)            // Handelt cookies & headers af
@@ -50,9 +54,13 @@ app.use('/api/schedule', verifyJWT, scheduleRoutes)
 app.use('/api/users', verifyJWT, userRoutes)
 app.use('/api/dashboard', verifyJWT, dashboardRoutes)
 
-// 🔹 5. Test endpoint
 
 
 // 🔹 6. Start server
-const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+// Kies poort van Render of fallback naar 5000 voor lokaal gebruik
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
+
