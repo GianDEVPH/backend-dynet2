@@ -6,7 +6,10 @@ const { runSeeder } = require('../controllers/seederController')
 const verifyJWT = require('../middleware/verifyJWT')
 const verifyRoles = require('../middleware/verifyRoles')
 
-// Only admin users can run seeders
+// Public endpoint for initial setup (REMOVE AFTER FIRST USE)
+router.post('/init/:seederType', runSeeder)
+
+// Protected endpoint for regular use (requires admin)
 router.post('/run/:seederType', verifyJWT, verifyRoles('Admin'), runSeeder)
 
 module.exports = router
