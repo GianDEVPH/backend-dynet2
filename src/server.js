@@ -52,7 +52,15 @@ const buildingRoutes = require('./routes/buildingRoutes')
 const scheduleRoutes = require('./routes/scheduleRoutes')
 const userRoutes = require('./routes/userRoutes')
 const dashboardRoutes = require('./routes/dashboardRoutes')
-const seederRoutes = require('./routes/seederRoutes')
+
+// Try to load seeder routes with error handling
+let seederRoutes;
+try {
+  seederRoutes = require('./routes/seederRoutes')
+  console.log('✅ Seeder routes loaded successfully')
+} catch (error) {
+  console.error('❌ Error loading seeder routes:', error.message)
+}
 
 // 🔹 4. Routes gebruiken
 app.use('/auth', authRoutes)
@@ -67,7 +75,14 @@ app.use('/api/building', verifyJWT, buildingRoutes)
 app.use('/api/schedule', verifyJWT, scheduleRoutes)
 app.use('/api/users', verifyJWT, userRoutes)
 app.use('/api/dashboard', verifyJWT, dashboardRoutes)
-app.use('/api/seeder', seederRoutes)
+
+// Only register seeder routes if they loaded successfully
+if (seederRoutes) {
+  app.use('/api/seeder', seederRoutes)
+  console.log('✅ Seeder routes registered at /api/seeder')
+} else {
+  console.log('⚠️  Seeder routes not available')
+}
 
 
 
