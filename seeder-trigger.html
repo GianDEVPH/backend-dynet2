@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Database Seeder Trigger</title>
+</head>
+<body>
+    <h1>Database Seeder</h1>
+    <input type="text" id="backendUrl" placeholder="Enter your backend URL (e.g., https://your-app.onrender.com)" style="width: 400px;">
+    <br><br>
+    <button onclick="runSeeder()">Run All Seeders</button>
+    <br><br>
+    <div id="result"></div>
+
+    <script>
+        async function runSeeder() {
+            const url = document.getElementById('backendUrl').value;
+            const resultDiv = document.getElementById('result');
+            
+            if (!url) {
+                resultDiv.innerHTML = '<p style="color: red;">Please enter your backend URL</p>';
+                return;
+            }
+            
+            resultDiv.innerHTML = '<p>Running seeders...</p>';
+            
+            try {
+                const response = await fetch(`${url}/api/seeder/init/all`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<p style="color: green;">Success: ${data.message}</p><pre>${data.output}</pre>`;
+                } else {
+                    resultDiv.innerHTML = `<p style="color: red;">Error: ${data.message}</p>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        }
+    </script>
+</body>
+</html>

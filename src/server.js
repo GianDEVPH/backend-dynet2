@@ -52,6 +52,7 @@ const buildingRoutes = require('./routes/buildingRoutes')
 const scheduleRoutes = require('./routes/scheduleRoutes')
 const userRoutes = require('./routes/userRoutes')
 const dashboardRoutes = require('./routes/dashboardRoutes')
+const setupRoutes = require('./routes/setupRoutes')
 
 // Try to load seeder routes with error handling
 let seederRoutes;
@@ -75,6 +76,7 @@ app.use('/api/building', verifyJWT, buildingRoutes)
 app.use('/api/schedule', verifyJWT, scheduleRoutes)
 app.use('/api/users', verifyJWT, userRoutes)
 app.use('/api/dashboard', verifyJWT, dashboardRoutes)
+app.use('/setup', setupRoutes)  // Public setup route for initial admin creation
 
 // Only register seeder routes if they loaded successfully
 if (seederRoutes) {
