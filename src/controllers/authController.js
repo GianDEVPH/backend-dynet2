@@ -15,7 +15,8 @@ const handleLogin = async (req, res) => {
     
     const match = await bcrypt.compare(password, foundUser.password)
     if (match) {
-      const roles = Object.values(foundUser.roles).filter(Boolean)
+      // Extract role names where the value is truthy (1 or greater)
+      const roles = Object.keys(foundUser.roles).filter(role => foundUser.roles[role])
       const accessToken = jwt.sign(
         {
           UserInfo: {
