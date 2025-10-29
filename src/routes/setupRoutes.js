@@ -21,13 +21,18 @@ router.post('/create-admin', async (req, res) => {
     const hashedPassword = await bcrypt.hash('admin123', 10)
     
     const adminUser = await User.create({
+      name: 'Admin',
       email: 'admin@dynet.nl',
       password: hashedPassword,
       roles: {
-        Admin: true,
-        Planner: true,
-        Monteur: true
-      }
+        Admin: 1,
+        TechnischePlanning: 1,
+        TechnischeSchouwer: 1,
+        Werkvoorbereider: 1,
+        HASPlanning: 1,
+        HASMonteur: 1
+      },
+      color: '#FF5733'
     })
 
     res.json({
