@@ -1,6 +1,7 @@
 // Configuration for allowed CORS origins defining which domains can access the API.
 
 const allowedOrigins = [
+  'https://tool.dynet.nl',     // Production frontend domain
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:5500',

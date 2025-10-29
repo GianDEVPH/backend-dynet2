@@ -11,7 +11,8 @@ const handleLogout = async (req, res) => {
   if (!foundUser) {
     res.clearCookie('jwt', {
       httpOnly: true,
-      sameSite: 'Strict', 
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict', 
     })
     res.sendStatus(204) 
     return
@@ -22,7 +23,8 @@ const handleLogout = async (req, res) => {
   )
   res.clearCookie('jwt', {
     httpOnly: true,
-    sameSite: 'Strict', 
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Strict', 
     maxAge: 24 * 60 * 60 * 1000,
   })
   res.sendStatus(204) 
