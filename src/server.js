@@ -11,6 +11,19 @@ const corsOptions = require('./config/corsOptions')
 // 🔹 1. Verbind met database
 connectDB()
 
+// Auto-run seeders if environment variable is set
+if (process.env.RUN_SEEDERS === 'true') {
+  console.log('Running seeders...')
+  const { exec } = require('child_process')
+  exec('npm run seed:all', (error, stdout, stderr) => {
+    if (error) {
+      console.error('Seeder error:', error)
+    } else {
+      console.log('Seeders completed:', stdout)
+    }
+  })
+}
+
 app.get('/api/test', (req, res) => {
   res.send('✅ Backend werkt!')
 })
@@ -39,6 +52,7 @@ const buildingRoutes = require('./routes/buildingRoutes')
 const scheduleRoutes = require('./routes/scheduleRoutes')
 const userRoutes = require('./routes/userRoutes')
 const dashboardRoutes = require('./routes/dashboardRoutes')
+const seederRoutes = require('./routes/seederRoutes')
 
 // 🔹 4. Routes gebruiken
 app.use('/auth', authRoutes)
@@ -53,6 +67,7 @@ app.use('/api/building', verifyJWT, buildingRoutes)
 app.use('/api/schedule', verifyJWT, scheduleRoutes)
 app.use('/api/users', verifyJWT, userRoutes)
 app.use('/api/dashboard', verifyJWT, dashboardRoutes)
+app.use('/api/seeder', seederRoutes)
 
 
 
